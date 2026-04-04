@@ -187,7 +187,7 @@ function SurprisePage() {
           <div className={styles.videoGrid}>
             {birthdayVideos.map((video) => (
               <div key={video.id} className={styles.videoCard}>
-                <video controls preload="metadata" loop autoPlay muted playsInline>
+                <video preload="metadata" loop autoPlay muted playsInline>
                   <source src={video.src} type="video/mp4" />
                 </video>
                 <span>Memory</span>
