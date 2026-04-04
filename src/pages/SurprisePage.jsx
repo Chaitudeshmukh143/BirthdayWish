@@ -80,8 +80,8 @@ function SurprisePage() {
         return;
       }
 
-      window.scrollBy({ top: 1, behavior: 'auto' });
-    }, 28);
+      window.scrollBy({ top: 2, behavior: 'auto' });
+    }, 24);
 
     return () => window.clearInterval(interval);
   }, [autoScrollEnabled, selectedMemory]);
