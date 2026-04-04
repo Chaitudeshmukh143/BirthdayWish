@@ -28,6 +28,7 @@ function SurprisePage() {
   const name = searchParams.get('name') || 'Bestie';
   const [selectedMemory, setSelectedMemory] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [autoScrollEnabled, setAutoScrollEnabled] = useState(true);
   const [activeSection, setActiveSection] = useState(navItems[0].id);
   const [confettiActive, setConfettiActive] = useState(true);
   const [viewport, setViewport] = useState({ width: window.innerWidth, height: window.innerHeight });
@@ -64,12 +65,50 @@ function SurprisePage() {
     setIsPlaying(true);
   }, []);
 
+  useEffect(() => {
+    if (!autoScrollEnabled || selectedMemory) {
+      return undefined;
+    }
+
+    const interval = window.setInterval(() => {
+      const reachedBottom =
+        window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4;
+
+      if (reachedBottom) {
+        window.clearInterval(interval);
+        setAutoScrollEnabled(false);
+        return;
+      }
+
+      window.scrollBy({ top: 1, behavior: 'auto' });
+    }, 28);
+
+    return () => window.clearInterval(interval);
+  }, [autoScrollEnabled, selectedMemory]);
+
+  useEffect(() => {
+    const stopAutoScroll = () => setAutoScrollEnabled(false);
+
+    window.addEventListener('wheel', stopAutoScroll, { passive: true });
+    window.addEventListener('touchstart', stopAutoScroll, { passive: true });
+    window.addEventListener('mousedown', stopAutoScroll);
+    window.addEventListener('keydown', stopAutoScroll);
+
+    return () => {
+      window.removeEventListener('wheel', stopAutoScroll);
+      window.removeEventListener('touchstart', stopAutoScroll);
+      window.removeEventListener('mousedown', stopAutoScroll);
+      window.removeEventListener('keydown', stopAutoScroll);
+    };
+  }, []);
+
   const toggleAudio = () => {
     setIsPlaying((current) => !current);
   };
 
   const replayExperience = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    setAutoScrollEnabled(true);
     setConfettiActive(true);
     window.setTimeout(() => setConfettiActive(false), 5000);
   };
