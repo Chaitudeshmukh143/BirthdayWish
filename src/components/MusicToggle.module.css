@@ -1,0 +1,2 @@
+.button { display: inline-flex; align-items: center; gap: .65rem; padding: .85rem 1.15rem; border-radius: 999px; border: 1px solid var(--border-shell); background: var(--bg-shell); color: var(--text-main); backdrop-filter: blur(14px); box-shadow: var(--shadow-soft); cursor: pointer; }
+.icon, .volume { display: grid; place-items: center; }

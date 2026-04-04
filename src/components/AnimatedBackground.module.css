@@ -1,0 +1,7 @@
+.wrapper { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: -1; }
+.orb { position: absolute; border-radius: 50%; filter: blur(12px); opacity: 0.8; }
+.orbOne { width: 18rem; height: 18rem; top: 10%; left: -3rem; background: radial-gradient(circle, rgba(255,210,228,.95), rgba(255,126,182,.2)); }
+.orbTwo { width: 22rem; height: 22rem; top: 40%; right: -5rem; background: radial-gradient(circle, rgba(255,209,102,.9), rgba(255,255,255,.08)); }
+.orbThree { width: 15rem; height: 15rem; bottom: -2rem; left: 45%; background: radial-gradient(circle, rgba(187,134,252,.92), rgba(255,255,255,.06)); }
+.sparkles { position: absolute; inset: 0; background-image: radial-gradient(circle at 20% 20%, rgba(255,255,255,.32) 0 2px, transparent 3px), radial-gradient(circle at 80% 35%, rgba(255,255,255,.24) 0 2px, transparent 3px), radial-gradient(circle at 30% 75%, rgba(255,255,255,.22) 0 2px, transparent 3px); animation: pulse 8s ease-in-out infinite; }
+@keyframes pulse { 0%,100% { opacity: .45; } 50% { opacity: .8; } }

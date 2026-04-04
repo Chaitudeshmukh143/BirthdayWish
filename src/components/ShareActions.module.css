@@ -1,0 +1,2 @@
+.actions { display: flex; flex-wrap: wrap; gap: .85rem; }
+.actions a, .actions button { display: inline-flex; align-items: center; gap: .55rem; padding: .85rem 1rem; border-radius: 999px; border: 1px solid var(--border-shell); background: var(--bg-shell); color: var(--text-main); cursor: pointer; backdrop-filter: blur(12px); box-shadow: var(--shadow-soft); }

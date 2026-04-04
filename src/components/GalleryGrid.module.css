@@ -1,0 +1,6 @@
+.grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+.card { position: relative; overflow: hidden; border: 1px solid var(--border-shell); border-radius: 1.5rem; padding: 0; background: var(--bg-shell); backdrop-filter: blur(12px); cursor: pointer; box-shadow: var(--shadow-soft); }
+.card img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; }
+.overlay { position: absolute; inset: auto 0 0 0; padding: 1rem; background: linear-gradient(180deg, transparent, rgba(18,5,24,.85)); text-align: left; }
+.overlay h3, .overlay p { margin: 0; }
+.overlay p { margin-top: .35rem; color: rgba(255,255,255,.76); font-size: .92rem; }

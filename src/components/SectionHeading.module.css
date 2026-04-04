@@ -1,0 +1,4 @@
+.heading { max-width: 40rem; margin-bottom: 1.8rem; }
+.heading span { display: inline-block; margin-bottom: .7rem; padding: .35rem .7rem; border-radius: 999px; background: rgba(255,255,255,.14); color: var(--accent); font-size: .82rem; letter-spacing: .08em; text-transform: uppercase; }
+.heading h2 { margin: 0 0 .8rem; font-size: clamp(2rem, 5vw, 3.8rem); line-height: 1.05; }
+.heading p { margin: 0; color: var(--text-soft); font-size: 1rem; }

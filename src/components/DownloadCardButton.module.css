@@ -1,0 +1,1 @@
+.button { display: inline-flex; align-items: center; gap: .55rem; padding: .85rem 1rem; border-radius: 999px; border: 1px solid var(--border-shell); background: linear-gradient(135deg, rgba(255,255,255,.22), rgba(255,255,255,.1)); color: var(--text-main); backdrop-filter: blur(14px); box-shadow: var(--shadow-soft); cursor: pointer; }

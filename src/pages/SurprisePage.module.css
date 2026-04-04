@@ -1,0 +1,39 @@
+.page { padding: 1.2rem 0 4rem; color: var(--text-main); }
+.youtubePlayer { position: fixed; width: 1px; height: 1px; opacity: 0; pointer-events: none; overflow: hidden; }
+.youtubePlayer iframe { width: 1px; height: 1px; border: 0; }
+.hero, .section { width: min(1100px, calc(100% - 2rem)); margin: 0 auto; }
+.hero { padding-top: .2rem; }
+.heroGrid { display: grid; gap: 1rem; margin-top: 1.25rem; }
+.heroCard, .statCard, .panel, .messageCard, .videoFrame, .videoCard, .finalCard { border-radius: 2rem; border: 1px solid var(--border-shell); background: linear-gradient(135deg, rgba(255,255,255,.22), rgba(255,255,255,.08)); backdrop-filter: blur(18px); box-shadow: var(--shadow-soft); }
+.heroCard, .statCard, .panel, .messageCard, .finalCard { padding: clamp(1.25rem, 3vw, 2rem); }
+.heroChip { display: inline-flex; padding: .4rem .8rem; border-radius: 999px; background: rgba(255,255,255,.14); color: var(--accent); font-size: .82rem; letter-spacing: .08em; text-transform: uppercase; }
+.heroCard h1 { margin: .9rem 0 .8rem; font-size: clamp(2.8rem, 8vw, 5.6rem); line-height: .95; }
+.heroActions, .finalActions, .badges { display: flex; flex-wrap: wrap; gap: .8rem; }
+.heroActions { margin-top: 1.6rem; }
+.secondaryAction, .replayButton { display: inline-flex; align-items: center; gap: .55rem; padding: .9rem 1.1rem; border-radius: 999px; border: 1px solid var(--border-shell); background: var(--bg-shell); color: var(--text-main); backdrop-filter: blur(12px); box-shadow: var(--shadow-soft); cursor: pointer; }
+.statCard p, .finalCard p, .storyText { margin: 0; }
+.statCard strong { display: block; margin-top: .65rem; font-size: clamp(1.8rem, 4vw, 2.5rem); }
+.statCard span { display: block; margin-top: .7rem; color: var(--text-soft); }
+.photoStack { display: grid; grid-template-columns: repeat(2, 1fr); gap: .8rem; margin-bottom: 1rem; }
+.heroPhoto { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 1.4rem; border: 1px solid rgba(255,255,255,.25); box-shadow: var(--shadow-soft); background: rgba(255,255,255,.08); }
+.badges { margin-top: 1.1rem; }
+.badges span { padding: .55rem .8rem; border-radius: 999px; background: rgba(255,255,255,.12); }
+.section { padding-top: 4rem; }
+.storyText { font-size: clamp(1.05rem, 2vw, 1.22rem); }
+.messageCard { font-size: clamp(1.05rem, 2vw, 1.25rem); line-height: 1.9; color: var(--text-soft); }
+.highlight { display: inline-block; margin: 0 .2rem; padding: 0 .25rem; color: var(--text-main); border-radius: .45rem; background-image: linear-gradient(120deg, rgba(255,209,102,.25), rgba(255,95,135,.45), rgba(255,209,102,.25)); background-size: 200% 100%; }
+.videoStack { display: grid; gap: 1rem; }
+.videoFrame { overflow: hidden; padding: .8rem; }
+.mainVideo,
+.videoCard video { width: 100%; display: block; border-radius: 1.4rem; background: #12091a; aspect-ratio: 9 / 16; object-fit: cover; }
+.videoGrid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); align-items: start; }
+.videoCard { padding: .75rem; display: flex; flex-direction: column; gap: .6rem; height: fit-content; }
+.videoCard span { display: block; padding: .8rem .2rem .2rem; color: var(--text-soft); text-align: center; letter-spacing: .04em; text-transform: uppercase; }
+.finalSection { padding-bottom: 2rem; }
+.finalCard { text-align: center; }
+.finalCard p { color: var(--accent); text-transform: uppercase; letter-spacing: .08em; }
+.finalCard h2 { margin: .7rem 0; font-size: clamp(2.3rem, 6vw, 4.8rem); }
+.finalCard span { display: block; max-width: 42rem; margin: 0 auto; color: var(--text-soft); }
+.finalActions { justify-content: center; margin: 1.5rem 0 1rem; }
+@media (min-width: 860px) { .heroGrid { grid-template-columns: 1.5fr .9fr; align-items: stretch; } }
+@media (max-width: 520px) { .photoStack { grid-template-columns: 1fr 1fr; } }

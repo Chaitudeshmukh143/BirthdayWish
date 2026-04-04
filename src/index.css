@@ -1,0 +1,77 @@
+:root {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color: #fff7fb;
+  background:
+    radial-gradient(circle at top, rgba(255, 204, 229, 0.55), transparent 30%),
+    linear-gradient(135deg, #381447 0%, #6f2dbd 35%, #f15bb5 68%, #ffca7a 100%);
+  color-scheme: dark;
+  --bg-shell: rgba(255, 255, 255, 0.16);
+  --bg-shell-strong: rgba(255, 255, 255, 0.24);
+  --border-shell: rgba(255, 255, 255, 0.28);
+  --text-main: #fff9fd;
+  --text-soft: rgba(255, 249, 253, 0.78);
+  --accent: #ffd166;
+  --accent-strong: #ff7eb6;
+  --shadow-soft: 0 18px 60px rgba(34, 8, 41, 0.28);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body.light {
+  color-scheme: light;
+  background:
+    radial-gradient(circle at top, rgba(255, 255, 255, 0.9), transparent 30%),
+    linear-gradient(145deg, #ffe7f2 0%, #f9dcff 42%, #fff0c3 100%);
+  --bg-shell: rgba(255, 255, 255, 0.58);
+  --bg-shell-strong: rgba(255, 255, 255, 0.8);
+  --border-shell: rgba(255, 255, 255, 0.7);
+  --text-main: #4d1f43;
+  --text-soft: rgba(77, 31, 67, 0.72);
+  --accent: #b85ac9;
+  --accent-strong: #ff5f87;
+  --shadow-soft: 0 18px 50px rgba(156, 69, 143, 0.16);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.appLoader {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  color: var(--text-main);
+  font-size: 1.1rem;
+  letter-spacing: 0.04em;
+}
