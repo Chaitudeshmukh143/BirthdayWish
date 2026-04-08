@@ -14,7 +14,11 @@ function FloatingNav({ items, activeSection, onThemeToggle, theme }) {
           </a>
         ))}
       </nav>
-      <button type="button" className={styles.themeToggle} onClick={onThemeToggle}>
+      <button
+        type="button"
+        className={`${styles.themeToggle} ${theme === 'dark' ? styles.darkThemeToggle : styles.lightThemeToggle}`}
+        onClick={onThemeToggle}
+      >
         {theme === 'dark' ? <FiSun /> : <FiMoon />}
       </button>
     </div>

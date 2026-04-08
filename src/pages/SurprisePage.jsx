@@ -23,12 +23,19 @@ const navItems = [
   { id: 'video', label: 'Video' },
 ];
 
+const burstPieces = Array.from({ length: 7 }, (_, index) => index);
+const centerBurstPieces = Array.from({ length: 10 }, (_, index) => index);
+const bottomBurstPieces = Array.from({ length: 22 }, (_, index) => index);
+const topBurstPieces = Array.from({ length: 18 }, (_, index) => index);
+const diagonalBurstPieces = Array.from({ length: 14 }, (_, index) => index);
+
 function SurprisePage() {
   const [searchParams] = useSearchParams();
-  const name = searchParams.get('name') || 'Bestie';
+  const name = searchParams.get('name') || 'Mayee';
   const [selectedMemory, setSelectedMemory] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [autoScrollEnabled, setAutoScrollEnabled] = useState(true);
+  const [introActive, setIntroActive] = useState(true);
+  const [autoScrollEnabled, setAutoScrollEnabled] = useState(false);
   const [activeSection, setActiveSection] = useState(navItems[0].id);
   const [confettiActive, setConfettiActive] = useState(true);
   const [viewport, setViewport] = useState({ width: window.innerWidth, height: window.innerHeight });
@@ -62,11 +69,20 @@ function SurprisePage() {
   }, []);
 
   useEffect(() => {
+    const introTimer = window.setTimeout(() => {
+      setIntroActive(false);
+      setAutoScrollEnabled(true);
+    }, 10000);
+
+    return () => window.clearTimeout(introTimer);
+  }, []);
+
+  useEffect(() => {
     setIsPlaying(true);
   }, []);
 
   useEffect(() => {
-    if (!autoScrollEnabled || selectedMemory) {
+    if (!autoScrollEnabled || selectedMemory || introActive) {
       return undefined;
     }
 
@@ -84,10 +100,13 @@ function SurprisePage() {
     }, 24);
 
     return () => window.clearInterval(interval);
-  }, [autoScrollEnabled, selectedMemory]);
+  }, [autoScrollEnabled, selectedMemory, introActive]);
 
   useEffect(() => {
-    const stopAutoScroll = () => setAutoScrollEnabled(false);
+    const stopAutoScroll = () => {
+      setIntroActive(false);
+      setAutoScrollEnabled(false);
+    };
 
     window.addEventListener('wheel', stopAutoScroll, { passive: true });
     window.addEventListener('touchstart', stopAutoScroll, { passive: true });
@@ -108,9 +127,14 @@ function SurprisePage() {
 
   const replayExperience = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    setAutoScrollEnabled(true);
+    setIntroActive(true);
+    setAutoScrollEnabled(false);
     setConfettiActive(true);
     window.setTimeout(() => setConfettiActive(false), 5000);
+    window.setTimeout(() => {
+      setIntroActive(false);
+      setAutoScrollEnabled(true);
+    }, 10000);
   };
 
   return (
@@ -126,11 +150,155 @@ function SurprisePage() {
           />
         </div>
       ) : null}
+      <div className={`${styles.sideBursts} ${introActive ? styles.sideBurstsActive : ''}`} aria-hidden="true">
+        <div className={`${styles.burstSide} ${styles.leftBurst}`}>
+          {burstPieces.map((piece) => (
+            <motion.span
+              key={`left-${piece}`}
+              className={`${styles.burstPiece} ${piece % 3 === 0 ? styles.burstDot : piece % 3 === 1 ? styles.burstRibbon : styles.burstStar}`}
+              initial={{ x: 0, y: 0, scale: 0.7, opacity: 0 }}
+              animate={{
+                x: 120 + piece * 18,
+                y: [-36 + piece * 12, -16 + piece * 6, 12 + piece * 18],
+                rotate: 24 + piece * 16,
+                scale: [0.7, 1, 0.9],
+                opacity: [0, 1, 0],
+              }}
+              transition={{ duration: 1.3, delay: piece * 0.06, ease: 'easeOut' }}
+            />
+          ))}
+        </div>
+        <div className={`${styles.burstSide} ${styles.rightBurst}`}>
+          {burstPieces.map((piece) => (
+            <motion.span
+              key={`right-${piece}`}
+              className={`${styles.burstPiece} ${piece % 3 === 0 ? styles.burstDot : piece % 3 === 1 ? styles.burstRibbon : styles.burstStar}`}
+              initial={{ x: 0, y: 0, scale: 0.7, opacity: 0 }}
+              animate={{
+                x: -(120 + piece * 18),
+                y: [-24 + piece * 10, -8 + piece * 7, 20 + piece * 16],
+                rotate: -(24 + piece * 16),
+                scale: [0.7, 1, 0.9],
+                opacity: [0, 1, 0],
+              }}
+              transition={{ duration: 1.3, delay: piece * 0.06, ease: 'easeOut' }}
+            />
+          ))}
+        </div>
+        <div className={styles.bottomLeftFirework}>
+          {diagonalBurstPieces.map((piece) => (
+            <motion.span
+              key={`diag-left-${piece}`}
+              className={`${styles.burstPiece} ${piece % 2 === 0 ? styles.burstRibbon : styles.burstStar}`}
+              initial={{ x: 0, y: 0, scale: 0.55, opacity: 0 }}
+              animate={{
+                x: 110 + piece * 18,
+                y: -(120 + piece * 16),
+                rotate: 28 + piece * 8,
+                scale: [0.55, 1, 0.82],
+                opacity: [0, 1, 0],
+              }}
+              transition={{ duration: 1.35, delay: piece * 0.035, ease: 'easeOut', repeat: 3, repeatDelay: 0.35 }}
+            />
+          ))}
+        </div>
+        <div className={styles.bottomRightFirework}>
+          {diagonalBurstPieces.map((piece) => (
+            <motion.span
+              key={`diag-right-${piece}`}
+              className={`${styles.burstPiece} ${piece % 2 === 0 ? styles.burstRibbon : styles.burstStar}`}
+              initial={{ x: 0, y: 0, scale: 0.55, opacity: 0 }}
+              animate={{
+                x: -(110 + piece * 18),
+                y: -(120 + piece * 16),
+                rotate: -(28 + piece * 8),
+                scale: [0.55, 1, 0.82],
+                opacity: [0, 1, 0],
+              }}
+              transition={{ duration: 1.35, delay: piece * 0.035, ease: 'easeOut', repeat: 3, repeatDelay: 0.35 }}
+            />
+          ))}
+        </div>
+        <div className={styles.topBurst}>
+          {topBurstPieces.map((piece) => (
+            <motion.span
+              key={`top-${piece}`}
+              className={`${styles.burstPiece} ${piece % 3 === 0 ? styles.burstDot : piece % 3 === 1 ? styles.burstRibbon : styles.burstStar}`}
+              initial={{ x: 0, y: 0, scale: 0.55, opacity: 0 }}
+              animate={{
+                x: -300 + piece * 34,
+                y: 140 + (piece % 4) * 34,
+                rotate: -120 + piece * 14,
+                scale: [0.55, 1, 0.82],
+                opacity: [0, 1, 0],
+              }}
+              transition={{ duration: 1.55, delay: piece * 0.03, ease: 'easeOut', repeat: 3, repeatDelay: 0.35 }}
+            />
+          ))}
+        </div>
+        <div className={styles.bottomBurst}>
+          {bottomBurstPieces.map((piece) => (
+            <motion.span
+              key={`bottom-${piece}`}
+              className={`${styles.burstPiece} ${piece % 3 === 0 ? styles.burstDot : piece % 3 === 1 ? styles.burstRibbon : styles.burstStar}`}
+              initial={{ x: 0, y: 0, scale: 0.6, opacity: 0 }}
+              animate={{
+                x: -260 + piece * 24,
+                y: -(190 + (piece % 5) * 40),
+                rotate: -90 + piece * 10,
+                scale: [0.6, 1, 0.85],
+                opacity: [0, 1, 0],
+              }}
+              transition={{ duration: 1.55, delay: piece * 0.03, ease: 'easeOut', repeat: 3, repeatDelay: 0.35 }}
+            />
+          ))}
+        </div>
+      </div>
 
-      <section className={styles.hero}>
+      <section className={`${styles.hero} ${introActive ? styles.heroFocus : ''}`}>
+        {introActive ? (
+          <div className={styles.centerCelebration} aria-hidden="true">
+            <motion.span
+              className={styles.winRing}
+              initial={{ scale: 0.4, opacity: 0.8 }}
+              animate={{ scale: 1.55, opacity: 0 }}
+              transition={{ duration: 1.1, ease: 'easeOut', repeat: 2, repeatDelay: 0.15 }}
+            />
+            <motion.span
+              className={styles.winRingAlt}
+              initial={{ scale: 0.5, opacity: 0.7 }}
+              animate={{ scale: 1.8, opacity: 0 }}
+              transition={{ duration: 1.3, ease: 'easeOut', delay: 0.18, repeat: 2, repeatDelay: 0.15 }}
+            />
+            {centerBurstPieces.map((piece) => {
+              const angle = (piece / centerBurstPieces.length) * Math.PI * 2;
+              const distance = 120 + (piece % 3) * 32;
+              return (
+                <motion.span
+                  key={`center-${piece}`}
+                  className={`${styles.centerBurst} ${piece % 2 === 0 ? styles.centerBurstDot : styles.centerBurstSpark}`}
+                  initial={{ x: 0, y: 0, scale: 0.4, opacity: 0 }}
+                  animate={{
+                    x: Math.cos(angle) * distance,
+                    y: Math.sin(angle) * distance,
+                    scale: [0.4, 1, 0.8],
+                    opacity: [0, 1, 0],
+                    rotate: [0, piece % 2 === 0 ? 80 : -80],
+                  }}
+                  transition={{ duration: 1.05, delay: piece * 0.05, ease: 'easeOut', repeat: 2, repeatDelay: 0.2 }}
+                />
+              );
+            })}
+          </div>
+        ) : null}
         <FloatingNav items={navItems} activeSection={activeSection} onThemeToggle={toggleTheme} theme={theme} />
         <div className={styles.heroGrid}>
-          <motion.div className={styles.heroCard} initial={{ y: 30, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.65 }}>
+          <motion.div
+            className={styles.heroCard}
+            initial={{ y: 90, scale: 0.72, opacity: 0 }}
+            animate={{ y: 0, scale: 1, opacity: 1 }}
+            transition={{ duration: 0.85, type: 'spring', stiffness: 160, damping: 16 }}
+          >
             <span className={styles.heroChip}>A celebration in pixels and feelings</span>
             <h1>Happy Birthday, {name}</h1>
             <TypingText text="May your day be wrapped in love, laughter, music, and the kind of joy that lingers long after the candles are out." speed={24} />
@@ -139,7 +307,12 @@ function SurprisePage() {
               <a href="#memories" className={styles.secondaryAction}>Explore Memories<FiArrowUpRight /></a>
             </div>
           </motion.div>
-          <motion.div className={styles.statCard} initial={{ scale: 0.96, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.65, delay: 0.1 }}>
+          <motion.div
+            className={styles.statCard}
+            initial={{ scale: 0.8, opacity: 0, y: 70 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, type: 'spring', stiffness: 150, damping: 16, delay: 0.08 }}
+          >
             <div className={styles.photoStack}>
               {featuredPhotos.map((photo, index) => (
                 <img
@@ -159,6 +332,7 @@ function SurprisePage() {
         </div>
       </section>
 
+      <div className={introActive ? styles.blurredContent : ''}>
       <section id="story" className={styles.section}>
         <SectionHeading eyebrow="Surprise Reveal" title="A little digital celebration, just for you" text="The message unfolds slowly, just like the best moments do." />
         <div className={styles.panel}>
@@ -211,6 +385,7 @@ function SurprisePage() {
           <ShareActions name={name} />
         </div>
       </section>
+      </div>
 
       <ImageModal selected={selectedMemory} onClose={() => setSelectedMemory(null)} />
     </motion.main>

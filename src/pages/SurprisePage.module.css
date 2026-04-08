@@ -1,34 +1,56 @@
 .page { padding: 1.2rem 0 4rem; color: var(--text-main); }
 .youtubePlayer { position: fixed; width: 1px; height: 1px; opacity: 0; pointer-events: none; overflow: hidden; }
 .youtubePlayer iframe { width: 1px; height: 1px; border: 0; }
+.sideBursts { position: fixed; inset: 0; pointer-events: none; z-index: 6; overflow: hidden; opacity: 0; transition: opacity .35s ease; }
+.sideBurstsActive { opacity: 1; }
+.burstSide { position: absolute; top: 24vh; width: 0; height: 0; }
+.leftBurst { left: 0; }
+.rightBurst { right: 0; }
+.bottomLeftFirework { position: absolute; left: 12vw; bottom: 8vh; width: 0; height: 0; }
+.bottomRightFirework { position: absolute; right: 12vw; bottom: 8vh; width: 0; height: 0; }
+.topBurst { position: absolute; left: 50%; top: 8vh; width: 0; height: 0; }
+.bottomBurst { position: absolute; left: 50%; bottom: 30vh; width: 0; height: 0; }
+.burstPiece { position: absolute; box-shadow: 0 0 28px rgba(247,231,206,.55); }
+.burstDot { width: 1.2rem; height: 1.2rem; border-radius: 50%; background: #fff8ea; }
+.burstRibbon { width: 1.2rem; height: 4.6rem; border-radius: 999px; background: linear-gradient(180deg, #fff8ea, #f0c987 60%, rgba(100,13,20,.2)); }
+.burstStar { width: 1.4rem; height: 1.4rem; background: #ffd166; clip-path: polygon(50% 0%, 62% 35%, 100% 50%, 62% 65%, 50% 100%, 38% 65%, 0% 50%, 38% 35%); }
 .hero, .section { width: min(1100px, calc(100% - 2rem)); margin: 0 auto; }
-.hero { padding-top: .2rem; }
+.hero { position: relative; z-index: 3; padding-top: .2rem; transition: transform .45s ease, filter .45s ease; }
+.heroFocus { transform: scale(1.01); filter: drop-shadow(0 0 28px rgba(247,231,206,.25)); }
+.centerCelebration { position: absolute; inset: 5rem 0 auto; height: 18rem; display: grid; place-items: center; pointer-events: none; z-index: 2; }
+.winRing,
+.winRingAlt { position: absolute; width: 12rem; height: 12rem; border-radius: 50%; border: 10px solid rgba(247,231,206,.85); box-shadow: 0 0 40px rgba(100,13,20,.14); }
+.winRingAlt { width: 9rem; height: 9rem; border-color: rgba(240,201,135,.78); }
+.centerBurst { position: absolute; }
+.centerBurstDot { width: 1.25rem; height: 1.25rem; border-radius: 50%; background: #f7e7ce; box-shadow: 0 0 26px rgba(247,231,206,.9); }
+.centerBurstSpark { width: .9rem; height: 3.8rem; border-radius: 999px; background: linear-gradient(180deg, #f7e7ce, #f0c987 55%, rgba(100,13,20,.24)); box-shadow: 0 0 24px rgba(240,201,135,.7); }
+.blurredContent { filter: blur(10px); opacity: .32; pointer-events: none; user-select: none; transition: filter .45s ease, opacity .45s ease; }
 .heroGrid { display: grid; gap: 1rem; margin-top: 1.25rem; }
-.heroCard, .statCard, .panel, .messageCard, .videoFrame, .videoCard, .finalCard { border-radius: 2rem; border: 1px solid var(--border-shell); background: linear-gradient(135deg, rgba(255,255,255,.22), rgba(255,255,255,.08)); backdrop-filter: blur(18px); box-shadow: var(--shadow-soft); }
+.heroCard, .statCard, .panel, .messageCard, .videoFrame, .videoCard, .finalCard { border-radius: 2rem; border: 1px solid var(--border-shell); background: linear-gradient(135deg, var(--bg-shell), var(--bg-shell-strong)); backdrop-filter: blur(18px); box-shadow: var(--shadow-soft); }
 .heroCard, .statCard, .panel, .messageCard, .finalCard { padding: clamp(1.25rem, 3vw, 2rem); }
-.heroChip { display: inline-flex; padding: .4rem .8rem; border-radius: 999px; background: rgba(255,255,255,.14); color: var(--accent); font-size: .82rem; letter-spacing: .08em; text-transform: uppercase; }
+.heroChip { display: inline-flex; padding: .4rem .8rem; border-radius: 999px; background: rgba(247,231,206,.22); color: #000; font-size: .82rem; letter-spacing: .08em; text-transform: uppercase; }
 .heroCard h1 { margin: .9rem 0 .8rem; font-size: clamp(2.8rem, 8vw, 5.6rem); line-height: .95; }
 .heroActions, .finalActions, .badges { display: flex; flex-wrap: wrap; gap: .8rem; }
 .heroActions { margin-top: 1.6rem; }
-.secondaryAction, .replayButton { display: inline-flex; align-items: center; gap: .55rem; padding: .9rem 1.1rem; border-radius: 999px; border: 1px solid var(--border-shell); background: var(--bg-shell); color: var(--text-main); backdrop-filter: blur(12px); box-shadow: var(--shadow-soft); cursor: pointer; }
+.secondaryAction, .replayButton { display: inline-flex; align-items: center; gap: .55rem; padding: .9rem 1.1rem; border-radius: 999px; border: 1px solid var(--border-shell); background: rgba(247,231,206,.85); color: var(--text-main); backdrop-filter: blur(12px); box-shadow: var(--shadow-soft); cursor: pointer; }
 .statCard p, .finalCard p, .storyText { margin: 0; }
 .statCard strong { display: block; margin-top: .65rem; font-size: clamp(1.8rem, 4vw, 2.5rem); }
 .statCard span { display: block; margin-top: .7rem; color: var(--text-soft); }
 .photoStack { display: grid; grid-template-columns: repeat(2, 1fr); gap: .8rem; margin-bottom: 1rem; }
-.heroPhoto { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 1.4rem; border: 1px solid rgba(255,255,255,.25); box-shadow: var(--shadow-soft); background: rgba(255,255,255,.08); }
+.heroPhoto { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 1.4rem; border: 1px solid rgba(247,231,206,.38); box-shadow: var(--shadow-soft); background: rgba(247,231,206,.12); }
 .badges { margin-top: 1.1rem; }
-.badges span { padding: .55rem .8rem; border-radius: 999px; background: rgba(255,255,255,.12); }
+.badges span { padding: .55rem .8rem; border-radius: 999px; background: rgba(247,231,206,.25); }
 .section { padding-top: 4rem; }
 .storyText { font-size: clamp(1.05rem, 2vw, 1.22rem); }
 .messageCard { font-size: clamp(1.05rem, 2vw, 1.25rem); line-height: 1.9; color: var(--text-soft); }
-.highlight { display: inline-block; margin: 0 .2rem; padding: 0 .25rem; color: var(--text-main); border-radius: .45rem; background-image: linear-gradient(120deg, rgba(255,209,102,.25), rgba(255,95,135,.45), rgba(255,209,102,.25)); background-size: 200% 100%; }
+.highlight { display: inline-block; margin: 0 .2rem; padding: 0 .25rem; color: var(--text-main); border-radius: .45rem; background-image: linear-gradient(120deg, rgba(247,231,206,.28), rgba(234,209,175,.5), rgba(247,231,206,.28)); background-size: 200% 100%; }
 .videoStack { display: grid; gap: 1rem; }
 .videoFrame { overflow: hidden; padding: .8rem; }
 .mainVideo,
 .videoCard video { width: 100%; display: block; border-radius: 1.4rem; background: #12091a; aspect-ratio: 9 / 16; object-fit: cover; }
 .videoGrid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); align-items: start; }
 .videoCard { padding: .75rem; display: flex; flex-direction: column; gap: .6rem; height: fit-content; }
-.videoCard span { display: block; padding: .8rem .2rem .2rem; color: var(--text-soft); text-align: center; letter-spacing: .04em; text-transform: uppercase; }
+.videoCard span { display: block; padding: .8rem .2rem .2rem; color: var(--text-main); text-align: center; letter-spacing: .04em; text-transform: uppercase; }
 .finalSection { padding-bottom: 2rem; }
 .finalCard { text-align: center; }
 .finalCard p { color: var(--accent); text-transform: uppercase; letter-spacing: .08em; }
@@ -37,3 +59,16 @@
 .finalActions { justify-content: center; margin: 1.5rem 0 1rem; }
 @media (min-width: 860px) { .heroGrid { grid-template-columns: 1.5fr .9fr; align-items: stretch; } }
 @media (max-width: 520px) { .photoStack { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 640px) {
+  .burstSide { top: 18vh; }
+  .burstPiece { transform-origin: center; }
+  .bottomLeftFirework { left: 8vw; bottom: 12vh; }
+  .bottomRightFirework { right: 8vw; bottom: 12vh; }
+  .topBurst { top: 12vh; }
+  .bottomBurst { bottom: 34vh; }
+  .centerCelebration { height: 13rem; inset: 6rem 0 auto; }
+  .winRing, .winRingAlt { width: 8rem; height: 8rem; border-width: 7px; }
+  .winRingAlt { width: 6rem; height: 6rem; }
+  .centerBurstDot { width: .9rem; height: .9rem; }
+  .centerBurstSpark { width: .7rem; height: 2.6rem; }
+}

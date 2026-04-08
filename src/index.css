@@ -2,19 +2,20 @@
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  color: #fff7fb;
+  color: #fff9fd;
   background:
-    radial-gradient(circle at top, rgba(255, 204, 229, 0.55), transparent 30%),
-    linear-gradient(135deg, #381447 0%, #6f2dbd 35%, #f15bb5 68%, #ffca7a 100%);
-  color-scheme: dark;
-  --bg-shell: rgba(255, 255, 255, 0.16);
-  --bg-shell-strong: rgba(255, 255, 255, 0.24);
-  --border-shell: rgba(255, 255, 255, 0.28);
+    radial-gradient(circle at top, rgba(255, 255, 255, 0.42), transparent 26%),
+    radial-gradient(circle at 86% 80%, rgba(228, 174, 109, 0.24), transparent 22%),
+    linear-gradient(140deg, #f7e7ce 0%, #f1dcc1 42%, #ead1af 100%);
+  color-scheme: light;
+  --bg-shell: #640d14;
+  --bg-shell-strong: #75131b;
+  --border-shell: rgba(100, 13, 20, 0.34);
   --text-main: #fff9fd;
-  --text-soft: rgba(255, 249, 253, 0.78);
-  --accent: #ffd166;
-  --accent-strong: #ff7eb6;
-  --shadow-soft: 0 18px 60px rgba(34, 8, 41, 0.28);
+  --text-soft: rgba(255, 245, 242, 0.82);
+  --accent: #640d14;
+  --accent-strong: #7b151d;
+  --shadow-soft: 0 18px 60px rgba(100, 13, 20, 0.16);
 }
 
 * {
@@ -34,17 +35,6 @@ body {
 
 body.light {
   color-scheme: light;
-  background:
-    radial-gradient(circle at top, rgba(255, 255, 255, 0.9), transparent 30%),
-    linear-gradient(145deg, #ffe7f2 0%, #f9dcff 42%, #fff0c3 100%);
-  --bg-shell: rgba(255, 255, 255, 0.58);
-  --bg-shell-strong: rgba(255, 255, 255, 0.8);
-  --border-shell: rgba(255, 255, 255, 0.7);
-  --text-main: #4d1f43;
-  --text-soft: rgba(77, 31, 67, 0.72);
-  --accent: #b85ac9;
-  --accent-strong: #ff5f87;
-  --shadow-soft: 0 18px 50px rgba(156, 69, 143, 0.16);
 }
 
 a {
