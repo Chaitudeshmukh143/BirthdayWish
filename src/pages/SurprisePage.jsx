@@ -112,11 +112,22 @@ function SurprisePage() {
     };
 
     const saveProgress = () => {
-      localStorage.setItem(AUDIO_TIME_KEY, String(audio.currentTime));
+      localStorage.setItem(AUDIO_TIME_KEY, String(Math.max(audio.currentTime, AUDIO_START_AT)));
+    };
+
+    const restartFromOffset = () => {
+      audio.currentTime = AUDIO_START_AT;
+      if (isPlaying) {
+        audio.play().catch(() => {
+          setIsPlaying(false);
+          setIsMobileAudioPending(true);
+        });
+      }
     };
 
     audio.addEventListener('loadedmetadata', syncStartTime);
     audio.addEventListener('timeupdate', saveProgress);
+    audio.addEventListener('ended', restartFromOffset);
 
     if (audio.readyState >= 1) {
       syncStartTime();
@@ -125,8 +136,28 @@ function SurprisePage() {
     return () => {
       audio.removeEventListener('loadedmetadata', syncStartTime);
       audio.removeEventListener('timeupdate', saveProgress);
+      audio.removeEventListener('ended', restartFromOffset);
     };
-  }, []);
+  }, [isPlaying]);
+
+  useEffect(() => {
+    if (!isMobileAudioPending) {
+      return undefined;
+    }
+
+    const unlockAudio = () => {
+      setIsMobileAudioPending(false);
+      setIsPlaying(true);
+    };
+
+    window.addEventListener('touchstart', unlockAudio, { passive: true, once: true });
+    window.addEventListener('click', unlockAudio, { once: true });
+
+    return () => {
+      window.removeEventListener('touchstart', unlockAudio);
+      window.removeEventListener('click', unlockAudio);
+    };
+  }, [isMobileAudioPending]);
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -216,7 +247,7 @@ function SurprisePage() {
     <motion.main className={styles.page} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.45 }}>
       <AnimatedBackground />
       {confettiActive ? <Confetti width={viewport.width} height={viewport.height} recycle={false} numberOfPieces={260} /> : null}
-      <audio ref={audioRef} src={musicUrl} loop preload="auto" className={styles.hiddenAudio} />
+      <audio ref={audioRef} src={musicUrl} preload="auto" className={styles.hiddenAudio} />
       {isMobileAudioPending ? (
         <button type="button" className={styles.mobileMusicPrompt} onClick={startMobileAudio}>
           Tap To Start Music
