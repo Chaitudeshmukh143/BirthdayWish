@@ -1,6 +1,7 @@
 .page { padding: 1.2rem 0 4rem; color: var(--text-main); }
 .youtubePlayer { position: fixed; width: 1px; height: 1px; opacity: 0; pointer-events: none; overflow: hidden; }
 .youtubePlayer iframe { width: 1px; height: 1px; border: 0; }
+.mobileMusicPrompt { position: fixed; right: 1rem; bottom: 1rem; z-index: 12; padding: .95rem 1.2rem; border-radius: 999px; border: 1px solid var(--border-shell); background: rgba(247,231,206,.95); color: #000; box-shadow: var(--shadow-soft); font-weight: 700; cursor: pointer; }
 .sideBursts { position: fixed; inset: 0; pointer-events: none; z-index: 6; overflow: hidden; opacity: 0; transition: opacity .35s ease; }
 .sideBurstsActive { opacity: 1; }
 .burstSide { position: absolute; top: 24vh; width: 0; height: 0; }
@@ -60,6 +61,7 @@
 @media (min-width: 860px) { .heroGrid { grid-template-columns: 1.5fr .9fr; align-items: stretch; } }
 @media (max-width: 520px) { .photoStack { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 640px) {
+  .mobileMusicPrompt { left: 1rem; right: 1rem; bottom: 1rem; text-align: center; }
   .burstSide { top: 18vh; }
   .burstPiece { transform-origin: center; }
   .bottomLeftFirework { left: 8vw; bottom: 12vh; }

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Confetti from 'react-confetti';
 import { motion } from 'framer-motion';
 import { FiArrowUpRight, FiRefreshCw } from 'react-icons/fi';
@@ -34,6 +34,7 @@ function SurprisePage() {
   const name = searchParams.get('name') || 'Mayee';
   const [selectedMemory, setSelectedMemory] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isMobileAudioPending, setIsMobileAudioPending] = useState(false);
   const [introActive, setIntroActive] = useState(true);
   const [autoScrollEnabled, setAutoScrollEnabled] = useState(false);
   const [activeSection, setActiveSection] = useState(navItems[0].id);
@@ -78,6 +79,15 @@ function SurprisePage() {
   }, []);
 
   useEffect(() => {
+    const needsTapToPlay =
+      window.matchMedia('(pointer: coarse)').matches || /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+    if (needsTapToPlay) {
+      setIsMobileAudioPending(true);
+      setIsPlaying(false);
+      return;
+    }
+
     setIsPlaying(true);
   }, []);
 
@@ -122,7 +132,18 @@ function SurprisePage() {
   }, []);
 
   const toggleAudio = () => {
+    if (isMobileAudioPending) {
+      setIsMobileAudioPending(false);
+      setIsPlaying(true);
+      return;
+    }
+
     setIsPlaying((current) => !current);
+  };
+
+  const startMobileAudio = () => {
+    setIsMobileAudioPending(false);
+    setIsPlaying(true);
   };
 
   const replayExperience = () => {
@@ -149,6 +170,11 @@ function SurprisePage() {
             allow="autoplay; encrypted-media"
           />
         </div>
+      ) : null}
+      {isMobileAudioPending ? (
+        <button type="button" className={styles.mobileMusicPrompt} onClick={startMobileAudio}>
+          Tap To Start Music
+        </button>
       ) : null}
       <div className={`${styles.sideBursts} ${introActive ? styles.sideBurstsActive : ''}`} aria-hidden="true">
         <div className={`${styles.burstSide} ${styles.leftBurst}`}>
