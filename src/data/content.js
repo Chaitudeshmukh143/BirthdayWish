@@ -3,7 +3,7 @@ import memory2 from '../assets/memory-2.svg';
 import memory3 from '../assets/memory-3.svg';
 import memory4 from '../assets/memory-4.svg';
 
-export const youtubeMusicId = 'FG6FruLw18k';
+export const musicUrl = encodeURI('/audio/Gehra Hua - Lyrical (Full Version) ｜ Dhurandhar, Ranveer Singh, Sara A,Shashwat Sachdev,Arijit Singh.mp3');
 
 export const featuredPhotos = [
   '/images/image.png',

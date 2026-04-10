@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import Confetti from 'react-confetti';
 import { motion } from 'framer-motion';
 import { FiArrowUpRight, FiRefreshCw } from 'react-icons/fi';
@@ -12,7 +12,7 @@ import MusicToggle from '../components/MusicToggle';
 import SectionHeading from '../components/SectionHeading';
 import ShareActions from '../components/ShareActions';
 import TypingText from '../components/TypingText';
-import { birthdayVideos, featuredPhotos, highlights, memories, specialMessage, youtubeMusicId } from '../data/content';
+import { birthdayVideos, featuredPhotos, highlights, memories, musicUrl, specialMessage } from '../data/content';
 import { useTheme } from '../hooks/useTheme';
 import styles from './SurprisePage.module.css';
 
@@ -28,6 +28,8 @@ const centerBurstPieces = Array.from({ length: 10 }, (_, index) => index);
 const bottomBurstPieces = Array.from({ length: 22 }, (_, index) => index);
 const topBurstPieces = Array.from({ length: 18 }, (_, index) => index);
 const diagonalBurstPieces = Array.from({ length: 14 }, (_, index) => index);
+const AUDIO_START_AT = 10;
+const AUDIO_TIME_KEY = 'birthday-audio-time';
 
 function SurprisePage() {
   const [searchParams] = useSearchParams();
@@ -41,6 +43,7 @@ function SurprisePage() {
   const [confettiActive, setConfettiActive] = useState(true);
   const [viewport, setViewport] = useState({ width: window.innerWidth, height: window.innerHeight });
   const { theme, toggleTheme } = useTheme();
+  const audioRef = useRef(null);
 
   const highlightedMessage = useMemo(() => specialMessage.split(new RegExp(`(${highlights.join('|')})`, 'gi')), []);
 
@@ -90,6 +93,57 @@ function SurprisePage() {
 
     setIsPlaying(true);
   }, []);
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) {
+      return undefined;
+    }
+
+    const savedTime = Number(localStorage.getItem(AUDIO_TIME_KEY) || AUDIO_START_AT);
+
+    const syncStartTime = () => {
+      const nextTime = Number.isFinite(savedTime) ? Math.max(savedTime, AUDIO_START_AT) : AUDIO_START_AT;
+      try {
+        audio.currentTime = nextTime;
+      } catch {
+        audio.currentTime = AUDIO_START_AT;
+      }
+    };
+
+    const saveProgress = () => {
+      localStorage.setItem(AUDIO_TIME_KEY, String(audio.currentTime));
+    };
+
+    audio.addEventListener('loadedmetadata', syncStartTime);
+    audio.addEventListener('timeupdate', saveProgress);
+
+    if (audio.readyState >= 1) {
+      syncStartTime();
+    }
+
+    return () => {
+      audio.removeEventListener('loadedmetadata', syncStartTime);
+      audio.removeEventListener('timeupdate', saveProgress);
+    };
+  }, []);
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) {
+      return;
+    }
+
+    if (isPlaying) {
+      audio.play().catch(() => {
+        setIsPlaying(false);
+        setIsMobileAudioPending(true);
+      });
+      return;
+    }
+
+    audio.pause();
+  }, [isPlaying]);
 
   useEffect(() => {
     if (!autoScrollEnabled || selectedMemory || introActive) {
@@ -162,15 +216,7 @@ function SurprisePage() {
     <motion.main className={styles.page} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.45 }}>
       <AnimatedBackground />
       {confettiActive ? <Confetti width={viewport.width} height={viewport.height} recycle={false} numberOfPieces={260} /> : null}
-      {isPlaying ? (
-        <div className={styles.youtubePlayer} aria-hidden="true">
-          <iframe
-            src={`https://www.youtube.com/embed/${youtubeMusicId}?autoplay=1&loop=1&playlist=${youtubeMusicId}&controls=0&disablekb=1&fs=0&modestbranding=1&rel=0`}
-            title="Background music player"
-            allow="autoplay; encrypted-media"
-          />
-        </div>
-      ) : null}
+      <audio ref={audioRef} src={musicUrl} loop preload="auto" className={styles.hiddenAudio} />
       {isMobileAudioPending ? (
         <button type="button" className={styles.mobileMusicPrompt} onClick={startMobileAudio}>
           Tap To Start Music
