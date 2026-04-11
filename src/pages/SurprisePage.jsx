@@ -37,6 +37,7 @@ function SurprisePage() {
   const [selectedMemory, setSelectedMemory] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMobileAudioPending, setIsMobileAudioPending] = useState(false);
+  const [isHoverPaused, setIsHoverPaused] = useState(false);
   const [introActive, setIntroActive] = useState(true);
   const [autoScrollEnabled, setAutoScrollEnabled] = useState(false);
   const [activeSection, setActiveSection] = useState(navItems[0].id);
@@ -82,15 +83,6 @@ function SurprisePage() {
   }, []);
 
   useEffect(() => {
-    const needsTapToPlay =
-      window.matchMedia('(pointer: coarse)').matches || /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-
-    if (needsTapToPlay) {
-      setIsMobileAudioPending(true);
-      setIsPlaying(false);
-      return;
-    }
-
     setIsPlaying(true);
   }, []);
 
@@ -177,7 +169,7 @@ function SurprisePage() {
   }, [isPlaying]);
 
   useEffect(() => {
-    if (!autoScrollEnabled || selectedMemory || introActive) {
+    if (!autoScrollEnabled || selectedMemory || introActive || isHoverPaused) {
       return undefined;
     }
 
@@ -195,7 +187,7 @@ function SurprisePage() {
     }, 24);
 
     return () => window.clearInterval(interval);
-  }, [autoScrollEnabled, selectedMemory, introActive]);
+  }, [autoScrollEnabled, selectedMemory, introActive, isHoverPaused]);
 
   useEffect(() => {
     const stopAutoScroll = () => {
@@ -203,15 +195,11 @@ function SurprisePage() {
       setAutoScrollEnabled(false);
     };
 
-    window.addEventListener('wheel', stopAutoScroll, { passive: true });
     window.addEventListener('touchstart', stopAutoScroll, { passive: true });
-    window.addEventListener('mousedown', stopAutoScroll);
     window.addEventListener('keydown', stopAutoScroll);
 
     return () => {
-      window.removeEventListener('wheel', stopAutoScroll);
       window.removeEventListener('touchstart', stopAutoScroll);
-      window.removeEventListener('mousedown', stopAutoScroll);
       window.removeEventListener('keydown', stopAutoScroll);
     };
   }, []);
@@ -234,6 +222,7 @@ function SurprisePage() {
   const replayExperience = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     setIntroActive(true);
+    setIsHoverPaused(false);
     setAutoScrollEnabled(false);
     setConfettiActive(true);
     window.setTimeout(() => setConfettiActive(false), 5000);
@@ -244,7 +233,20 @@ function SurprisePage() {
   };
 
   return (
-    <motion.main className={styles.page} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.45 }}>
+    <motion.main
+      className={styles.page}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.45 }}
+      onMouseEnter={() => setIsHoverPaused(true)}
+      onMouseLeave={() => {
+        setIsHoverPaused(false);
+        if (!introActive && !selectedMemory) {
+          setAutoScrollEnabled(true);
+        }
+      }}
+    >
       <AnimatedBackground />
       {confettiActive ? <Confetti width={viewport.width} height={viewport.height} recycle={false} numberOfPieces={260} /> : null}
       <audio ref={audioRef} src={musicUrl} preload="auto" className={styles.hiddenAudio} />
