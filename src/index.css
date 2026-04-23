@@ -4,18 +4,18 @@
   font-weight: 400;
   color: #fff9fd;
   background:
-    radial-gradient(circle at top, rgba(255, 255, 255, 0.42), transparent 26%),
-    radial-gradient(circle at 86% 80%, rgba(228, 174, 109, 0.24), transparent 22%),
-    linear-gradient(140deg, #f7e7ce 0%, #f1dcc1 42%, #ead1af 100%);
-  color-scheme: light;
-  --bg-shell: #640d14;
-  --bg-shell-strong: #75131b;
-  --border-shell: rgba(100, 13, 20, 0.34);
+    radial-gradient(circle at top, rgba(255, 209, 163, 0.18), transparent 24%),
+    radial-gradient(circle at 86% 80%, rgba(255, 150, 119, 0.18), transparent 22%),
+    linear-gradient(145deg, #180509 0%, #2b0810 36%, #4d0b14 72%, #640d14 100%);
+  color-scheme: dark;
+  --bg-shell: rgba(28, 7, 18, 0.9);
+  --bg-shell-strong: rgba(63, 13, 33, 0.94);
+  --border-shell: rgba(255, 209, 102, 0.22);
   --text-main: #fff9fd;
-  --text-soft: rgba(255, 245, 242, 0.82);
-  --accent: #640d14;
-  --accent-strong: #7b151d;
-  --shadow-soft: 0 18px 60px rgba(100, 13, 20, 0.16);
+  --text-soft: rgba(255, 244, 238, 0.74);
+  --accent: #ffd166;
+  --accent-strong: #ff8a7a;
+  --shadow-soft: 0 18px 60px rgba(0, 0, 0, 0.34);
 }
 
 * {
@@ -35,6 +35,18 @@ body {
 
 body.light {
   color-scheme: light;
+  background:
+    radial-gradient(circle at top, rgba(255, 255, 255, 0.42), transparent 26%),
+    radial-gradient(circle at 86% 80%, rgba(228, 174, 109, 0.24), transparent 22%),
+    linear-gradient(140deg, #f7e7ce 0%, #f1dcc1 42%, #ead1af 100%);
+  --bg-shell: #640d14;
+  --bg-shell-strong: #75131b;
+  --border-shell: rgba(100, 13, 20, 0.34);
+  --text-main: #fff9fd;
+  --text-soft: rgba(255, 245, 242, 0.82);
+  --accent: #640d14;
+  --accent-strong: #7b151d;
+  --shadow-soft: 0 18px 60px rgba(100, 13, 20, 0.16);
 }
 
 a {
