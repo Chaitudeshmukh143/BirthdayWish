@@ -6,19 +6,21 @@ import memory4 from '../assets/memory-4.svg';
 export const musicUrl = '/audio/birthday-song.mp3';
 
 export const featuredPhotos = [
+  '/images/mayee-screenshot-apr30.png',
   '/images/mayee-saree.jpeg',
   '/images/image.png',
   '/images/pic1.png',
 ];
 
 export const memories = [
-  { id: 1, image: '/images/mayee-saree.jpeg', title: 'Saree Glow', caption: 'A beautiful memory added to the surprise with all the warmth it deserves.' },
-  { id: 2, image: '/images/image.png', title: 'Her Smile', caption: 'A photo worth keeping close, because it carries her softness and calm.' },
-  { id: 3, image: '/images/pic1.png', title: 'Beautiful Memory', caption: 'One more real memory added to the page, exactly where it belongs.' },
-  { id: 4, image: memory1, title: 'Sunset Smile', caption: 'The day everything felt lighter because your laugh was in the air.' },
-  { id: 5, image: memory2, title: 'Golden Afternoon', caption: 'A simple day that turned into one of our favorite memories.' },
-  { id: 6, image: memory3, title: 'Coffee & Dreams', caption: 'The kind of conversation that makes time disappear.' },
-  { id: 7, image: memory4, title: 'City Lights', caption: 'Proof that every place feels magical when we are together.' },
+  { id: 1, image: '/images/mayee-screenshot-apr30.png', title: 'A Beautiful Moment', caption: 'A new special photo added to make this surprise feel even more personal.' },
+  { id: 2, image: '/images/mayee-saree.jpeg', title: 'Saree Glow', caption: 'A beautiful memory added to the surprise with all the warmth it deserves.' },
+  { id: 3, image: '/images/image.png', title: 'Her Smile', caption: 'A photo worth keeping close, because it carries her softness and calm.' },
+  { id: 4, image: '/images/pic1.png', title: 'Beautiful Memory', caption: 'One more real memory added to the page, exactly where it belongs.' },
+  { id: 5, image: memory1, title: 'Sunset Smile', caption: 'The day everything felt lighter because your laugh was in the air.' },
+  { id: 6, image: memory2, title: 'Golden Afternoon', caption: 'A simple day that turned into one of our favorite memories.' },
+  { id: 7, image: memory3, title: 'Coffee & Dreams', caption: 'The kind of conversation that makes time disappear.' },
+  { id: 8, image: memory4, title: 'City Lights', caption: 'Proof that every place feels magical when we are together.' },
 ];
 
 export const birthdayVideos = [
