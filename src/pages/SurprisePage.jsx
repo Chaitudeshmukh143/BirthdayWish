@@ -28,7 +28,7 @@ const centerBurstPieces = Array.from({ length: 10 }, (_, index) => index);
 const bottomBurstPieces = Array.from({ length: 22 }, (_, index) => index);
 const topBurstPieces = Array.from({ length: 18 }, (_, index) => index);
 const diagonalBurstPieces = Array.from({ length: 14 }, (_, index) => index);
-const AUDIO_START_AT = 10;
+const AUDIO_START_AT =0;
 const AUDIO_TIME_KEY = 'birthday-audio-time';
 
 function SurprisePage() {
