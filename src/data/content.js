@@ -8,7 +8,7 @@ export const musicUrl = '/audio/birthday-song.mp3';
 export const featuredPhotos = [
   '/images/mayee-screenshot-may06.png',
   '/images/mayee-screenshot-apr30.png',
-  '/images/mayee-saree.jpeg',
+  '/images/2.png',
   '/images/image.png',
   '/images/pic1.png',
   '/images/1.png'
@@ -20,10 +20,9 @@ export const memories = [
   { id: 3, image: '/images/mayee-saree.jpeg', title: 'Saree Glow', caption: 'A beautiful memory added to the surprise with all the warmth it deserves.' },
   { id: 4, image: '/images/image.png', title: 'Her Smile', caption: 'A photo worth keeping close, because it carries her softness and calm.' },
   { id: 5, image: '/images/pic1.png', title: 'Beautiful Memory', caption: 'One more real memory added to the page, exactly where it belongs.' },
-  { id: 6, image: memory1, title: 'Sunset Smile', caption: 'The day everything felt lighter because your laugh was in the air.' },
+  { id: 6, image: '/images/1.png', title: 'Sunset Smile', caption: 'The day everything felt lighter because your laugh was in the air.' },
   { id: 7, image: '/images/1.png', title: 'Golden Afternoon', caption: 'A simple day that turned into one of our favorite memories.' },
-  { id: 8, image: memory3, title: 'Coffee & Dreams', caption: 'The kind of conversation that makes time disappear.' },
-  { id: 9, image: memory4, title: 'City Lights', caption: 'Proof that every place feels magical when we are together.' },
+ 
 ];
 
 export const birthdayVideos = [
