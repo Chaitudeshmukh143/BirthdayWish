@@ -3,7 +3,7 @@ import memory2 from '../assets/memory-2.svg';
 import memory3 from '../assets/memory-3.svg';
 import memory4 from '../assets/memory-4.svg';
 
-export const musicUrl = '/audio/birthday-song.mp3';
+export const musicUrl = '/audio/Gehra Hua (From “Dhurandhar”) – Arijit Singh  Shashwat Sachdev  Irshad Kamil  Armaan Khan - KGS ORIGINAL.mp3';
 
 export const featuredPhotos = [
   '/images/mayee-screenshot-may06.png',
