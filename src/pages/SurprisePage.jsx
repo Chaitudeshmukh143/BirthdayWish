@@ -143,12 +143,16 @@ function SurprisePage() {
       setIsPlaying(true);
     };
 
+    window.addEventListener('pointerdown', unlockAudio, { once: true });
     window.addEventListener('touchstart', unlockAudio, { passive: true, once: true });
     window.addEventListener('click', unlockAudio, { once: true });
+    window.addEventListener('keydown', unlockAudio, { once: true });
 
     return () => {
+      window.removeEventListener('pointerdown', unlockAudio);
       window.removeEventListener('touchstart', unlockAudio);
       window.removeEventListener('click', unlockAudio);
+      window.removeEventListener('keydown', unlockAudio);
     };
   }, [isMobileAudioPending]);
 
@@ -226,11 +230,6 @@ function SurprisePage() {
     setIsPlaying((current) => !current);
   };
 
-  const startMobileAudio = () => {
-    setIsMobileAudioPending(false);
-    setIsPlaying(true);
-  };
-
   const handleTouchStart = () => {
     setIsTouchPaused(true);
 
@@ -245,6 +244,13 @@ function SurprisePage() {
 
     if (!selectedMemory && !introActive) {
       setAutoScrollEnabled(true);
+    }
+  };
+
+  const handlePointerDown = () => {
+    if (isMobileAudioPending || !isPlaying) {
+      setIsMobileAudioPending(false);
+      setIsPlaying(true);
     }
   };
 
@@ -278,15 +284,11 @@ function SurprisePage() {
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
       onTouchCancel={handleTouchEnd}
+      onPointerDown={handlePointerDown}
     >
       <AnimatedBackground />
       {confettiActive ? <Confetti width={viewport.width} height={viewport.height} recycle={false} numberOfPieces={260} /> : null}
       <audio ref={audioRef} src={musicUrl} preload="auto" className={styles.hiddenAudio} />
-      {isMobileAudioPending ? (
-        <button type="button" className={styles.mobileMusicPrompt} onClick={startMobileAudio}>
-          Tap To Start Music
-        </button>
-      ) : null}
       <div className={`${styles.sideBursts} ${introActive ? styles.sideBurstsActive : ''}`} aria-hidden="true">
         <div className={`${styles.burstSide} ${styles.leftBurst}`}>
           {burstPieces.map((piece) => (
