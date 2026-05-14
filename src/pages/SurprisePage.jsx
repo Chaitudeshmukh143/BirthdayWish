@@ -38,6 +38,7 @@ function SurprisePage() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMobileAudioPending, setIsMobileAudioPending] = useState(false);
   const [isHoverPaused, setIsHoverPaused] = useState(false);
+  const [isTouchPaused, setIsTouchPaused] = useState(false);
   const [introActive, setIntroActive] = useState(true);
   const [autoScrollEnabled, setAutoScrollEnabled] = useState(false);
   const [activeSection, setActiveSection] = useState(navItems[0].id);
@@ -169,7 +170,7 @@ function SurprisePage() {
   }, [isPlaying]);
 
   useEffect(() => {
-    if (!autoScrollEnabled || selectedMemory || introActive || isHoverPaused) {
+    if (!autoScrollEnabled || selectedMemory || introActive || isHoverPaused || isTouchPaused) {
       return undefined;
     }
 
@@ -187,22 +188,33 @@ function SurprisePage() {
     }, 24);
 
     return () => window.clearInterval(interval);
-  }, [autoScrollEnabled, selectedMemory, introActive, isHoverPaused]);
+  }, [autoScrollEnabled, selectedMemory, introActive, isHoverPaused, isTouchPaused]);
 
   useEffect(() => {
-    const stopAutoScroll = () => {
-      setIntroActive(false);
-      setAutoScrollEnabled(false);
+    const handleTouchEnd = () => {
+      setIsTouchPaused(false);
+
+      if (!selectedMemory && !introActive) {
+        setAutoScrollEnabled(true);
+      }
     };
 
-    window.addEventListener('touchstart', stopAutoScroll, { passive: true });
-    window.addEventListener('keydown', stopAutoScroll);
+    const handleTouchCancel = () => {
+      setIsTouchPaused(false);
+
+      if (!selectedMemory && !introActive) {
+        setAutoScrollEnabled(true);
+      }
+    };
+
+    window.addEventListener('touchend', handleTouchEnd, { passive: true });
+    window.addEventListener('touchcancel', handleTouchCancel, { passive: true });
 
     return () => {
-      window.removeEventListener('touchstart', stopAutoScroll);
-      window.removeEventListener('keydown', stopAutoScroll);
+      window.removeEventListener('touchend', handleTouchEnd);
+      window.removeEventListener('touchcancel', handleTouchCancel);
     };
-  }, []);
+  }, [introActive, selectedMemory]);
 
   const toggleAudio = () => {
     if (isMobileAudioPending) {
@@ -217,6 +229,23 @@ function SurprisePage() {
   const startMobileAudio = () => {
     setIsMobileAudioPending(false);
     setIsPlaying(true);
+  };
+
+  const handleTouchStart = () => {
+    setIsTouchPaused(true);
+
+    if (isMobileAudioPending || !isPlaying) {
+      setIsMobileAudioPending(false);
+      setIsPlaying(true);
+    }
+  };
+
+  const handleTouchEnd = () => {
+    setIsTouchPaused(false);
+
+    if (!selectedMemory && !introActive) {
+      setAutoScrollEnabled(true);
+    }
   };
 
   const replayExperience = () => {
@@ -246,6 +275,9 @@ function SurprisePage() {
           setAutoScrollEnabled(true);
         }
       }}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+      onTouchCancel={handleTouchEnd}
     >
       <AnimatedBackground />
       {confettiActive ? <Confetti width={viewport.width} height={viewport.height} recycle={false} numberOfPieces={260} /> : null}
