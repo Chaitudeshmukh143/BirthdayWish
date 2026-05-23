@@ -39,7 +39,7 @@ export const birthdayVideos = [
     src: 'public/images/108.jpg',
   }
   
-];S
+];
 
 export const highlights = ['kindness', 'light', 'courage', 'warmth', 'magic'];
 
