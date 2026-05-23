@@ -6,59 +6,40 @@ import memory4 from '../assets/memory-4.svg';
 export const musicUrl = '/audio/Gehra Hua (From “Dhurandhar”) – Arijit Singh  Shashwat Sachdev  Irshad Kamil  Armaan Khan - KGS ORIGINAL.mp3';
 
 export const featuredPhotos = [
-  '/images/mayee-screenshot-may06.png',
-  '/images/mayee-screenshot-apr30.png',
-  '/images/2.png',
-  '/images/image.png',
-  '/images/pic1.png',
-  '/images/1.png'
+  'public/images/101.jpg',
+  'public/images/104.jpg',
+  'public/images/105.jpg',
+  'public/images/106.jpg',
+  'public/images/107.jpg',
+  'public/images/108.jpg'
 ];
 
 export const memories = [
-  { id: 1, image: '/images/mayee-screenshot-may06.png', title: 'Lovely Smile', caption: 'A fresh memory added to the surprise so her happiest moments shine even more.' },
-  { id: 2, image: '/images/mayee-screenshot-apr30.png', title: 'A Beautiful Moment', caption: 'A new special photo added to make this surprise feel even more personal.' },
-  { id: 3, image: '/images/mayee-saree.jpeg', title: 'Saree Glow', caption: 'A beautiful memory added to the surprise with all the warmth it deserves.' },
-  { id: 4, image: '/images/image.png', title: 'Her Smile', caption: 'A photo worth keeping close, because it carries her softness and calm.' },
-  { id: 5, image: '/images/pic1.png', title: 'Beautiful Memory', caption: 'One more real memory added to the page, exactly where it belongs.' },
-  { id: 6, image: '/images/1.png', title: 'Sunset Smile', caption: 'The day everything felt lighter because your laugh was in the air.' },
-  { id: 7, image: '/images/1.png', title: 'Golden Afternoon', caption: 'A simple day that turned into one of our favorite memories.' },
+  { id: 1, image: 'public/images/101.jpg', title: 'Lovely Smile', caption: 'A fresh memory added to the surprise so her happiest moments shine even more.' },
+  { id: 2, image: 'public/images/102.jpg', title: 'A Beautiful Moment', caption: 'A new special photo added to make this surprise feel even more personal.' },
+  { id: 3, image: 'public/images/103.jpg', title: 'Saree Glow', caption: 'A beautiful memory added to the surprise with all the warmth it deserves.' },
+  { id: 4, image: 'public/images/104.jpg', title: 'Her Smile', caption: 'A photo worth keeping close, because it carries her softness and calm.' },
+  { id: 5, image: 'public/images/105.jpg', title: 'Beautiful Memory', caption: 'One more real memory added to the page, exactly where it belongs.' },
+  { id: 6, image: 'public/images/106.jpg', title: 'Sunset Smile', caption: 'The day everything felt lighter because your laugh was in the air.' },
+  { id: 7, image: 'public/images/107.jpg', title: 'Golden Afternoon', caption: 'A simple day that turned into one of our favorite memories.' },
  
 ];
 
 export const birthdayVideos = [
   {
     id: 1,
-    src: '/videos/mayee-whatsapp-1.mp4',
+    src: 'public/images/v1.mp4',
   },
   {
     id: 2,
-    src: '/videos/mayee-whatsapp-2.mp4',
+    src: 'public/images/v2.mp4',
   },
   {
     id: 3,
-    src: '/videos/E5FC435E-5DD8-4E67-BA74-989C86979CE0.mp4',
-  },
-  {
-    id: 4,
-    src: '/videos/9F53AFEB-063F-43AB-A356-A04E5831193F.mp4',
-  },
-  {
-    id: 5,
-    src: '/videos/7B5C8CDD-3EDF-48B2-9FCF-DF5388DDB4A6.mp4',
-  },
-  {
-    id: 6,
-    src: '/videos/3A2D465A-A1F7-4538-8569-BFC4A60F3502.mp4',
-  },
-  {
-    id: 7,
-    src: '/videos/BFBC7CC4-A9D8-4899-8580-6AD875DB5BD0.mp4',
-  },
-  {
-    id: 8,
-    src: '/videos/84444ED4-D88E-4B43-A778-6A5A7D9A7F2F.mp4',
-  },
-];
+    src: 'public/images/108.jpg',
+  }
+  
+];S
 
 export const highlights = ['kindness', 'light', 'courage', 'warmth', 'magic'];
 

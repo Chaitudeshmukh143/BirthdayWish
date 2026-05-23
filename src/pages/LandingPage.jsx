@@ -7,7 +7,7 @@ import styles from './LandingPage.module.css';
 
 function LandingPage() {
   const [searchParams] = useSearchParams();
-  const name = searchParams.get('name') || 'Mayee';
+  const name = searchParams.get('name') || 'Vaishu';
   const playgroundRef = useRef(null);
   const noButtonRef = useRef(null);
   const [noPosition, setNoPosition] = useState({ x: 0, y: 0 });
